@@ -19,10 +19,12 @@ You don't have to `make install` ;)
 
 ```
 $ ./configure
-$ scan-build make
+$ make
+``
 
 or
 
+```
 $ aclocal
 $ autoheader
 $ automake -a -c
