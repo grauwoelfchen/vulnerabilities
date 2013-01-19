@@ -45,4 +45,4 @@ $ ./configure
 $ scan-build -V make
 ```
 
-Did you found Vulnerabilities ?
+Did you find Vulnerabilities ?
