@@ -5,4 +5,5 @@ config.log
 config.status
 stamp-*
 *.o
-src/.deps
+src/*
+!src/*.c

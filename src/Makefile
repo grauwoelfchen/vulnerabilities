@@ -49,7 +49,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = escape_shell_cmd$(EXEEXT)
+bin_PROGRAMS = escape_shell_cmd$(EXEEXT) \
+	unbounded_copy_by_gets$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -65,6 +66,9 @@ PROGRAMS = $(bin_PROGRAMS)
 am_escape_shell_cmd_OBJECTS = escape_shell_cmd.$(OBJEXT)
 escape_shell_cmd_OBJECTS = $(am_escape_shell_cmd_OBJECTS)
 escape_shell_cmd_LDADD = $(LDADD)
+am_unbounded_copy_by_gets_OBJECTS = unbounded_copy_by_gets.$(OBJEXT)
+unbounded_copy_by_gets_OBJECTS = $(am_unbounded_copy_by_gets_OBJECTS)
+unbounded_copy_by_gets_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -73,8 +77,10 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(escape_shell_cmd_SOURCES)
-DIST_SOURCES = $(escape_shell_cmd_SOURCES)
+SOURCES = $(escape_shell_cmd_SOURCES) \
+	$(unbounded_copy_by_gets_SOURCES)
+DIST_SOURCES = $(escape_shell_cmd_SOURCES) \
+	$(unbounded_copy_by_gets_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -170,6 +176,7 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 escape_shell_cmd_SOURCES = escape_shell_cmd.c
+unbounded_copy_by_gets_SOURCES = unbounded_copy_by_gets.c
 all: all-am
 
 .SUFFIXES:
@@ -247,6 +254,9 @@ clean-binPROGRAMS:
 escape_shell_cmd$(EXEEXT): $(escape_shell_cmd_OBJECTS) $(escape_shell_cmd_DEPENDENCIES) $(EXTRA_escape_shell_cmd_DEPENDENCIES) 
 	@rm -f escape_shell_cmd$(EXEEXT)
 	$(LINK) $(escape_shell_cmd_OBJECTS) $(escape_shell_cmd_LDADD) $(LIBS)
+unbounded_copy_by_gets$(EXEEXT): $(unbounded_copy_by_gets_OBJECTS) $(unbounded_copy_by_gets_DEPENDENCIES) $(EXTRA_unbounded_copy_by_gets_DEPENDENCIES) 
+	@rm -f unbounded_copy_by_gets$(EXEEXT)
+	$(LINK) $(unbounded_copy_by_gets_OBJECTS) $(unbounded_copy_by_gets_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -255,6 +265,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/escape_shell_cmd.Po
+include ./$(DEPDIR)/unbounded_copy_by_gets.Po
 
 .c.o:
 	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
