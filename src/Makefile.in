@@ -50,7 +50,8 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = escape_shell_cmd$(EXEEXT) \
-	unbounded_copy_by_gets$(EXEEXT)
+	unbounded_copy_by_gets$(EXEEXT) \
+	unbounded_copy_by_args$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -66,6 +67,9 @@ PROGRAMS = $(bin_PROGRAMS)
 am_escape_shell_cmd_OBJECTS = escape_shell_cmd.$(OBJEXT)
 escape_shell_cmd_OBJECTS = $(am_escape_shell_cmd_OBJECTS)
 escape_shell_cmd_LDADD = $(LDADD)
+am_unbounded_copy_by_args_OBJECTS = unbounded_copy_by_args.$(OBJEXT)
+unbounded_copy_by_args_OBJECTS = $(am_unbounded_copy_by_args_OBJECTS)
+unbounded_copy_by_args_LDADD = $(LDADD)
 am_unbounded_copy_by_gets_OBJECTS = unbounded_copy_by_gets.$(OBJEXT)
 unbounded_copy_by_gets_OBJECTS = $(am_unbounded_copy_by_gets_OBJECTS)
 unbounded_copy_by_gets_LDADD = $(LDADD)
@@ -78,8 +82,10 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(escape_shell_cmd_SOURCES) \
+	$(unbounded_copy_by_args_SOURCES) \
 	$(unbounded_copy_by_gets_SOURCES)
 DIST_SOURCES = $(escape_shell_cmd_SOURCES) \
+	$(unbounded_copy_by_args_SOURCES) \
 	$(unbounded_copy_by_gets_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -177,6 +183,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 escape_shell_cmd_SOURCES = escape_shell_cmd.c
 unbounded_copy_by_gets_SOURCES = unbounded_copy_by_gets.c
+unbounded_copy_by_args_SOURCES = unbounded_copy_by_args.c
 all: all-am
 
 .SUFFIXES:
@@ -254,6 +261,9 @@ clean-binPROGRAMS:
 escape_shell_cmd$(EXEEXT): $(escape_shell_cmd_OBJECTS) $(escape_shell_cmd_DEPENDENCIES) $(EXTRA_escape_shell_cmd_DEPENDENCIES) 
 	@rm -f escape_shell_cmd$(EXEEXT)
 	$(LINK) $(escape_shell_cmd_OBJECTS) $(escape_shell_cmd_LDADD) $(LIBS)
+unbounded_copy_by_args$(EXEEXT): $(unbounded_copy_by_args_OBJECTS) $(unbounded_copy_by_args_DEPENDENCIES) $(EXTRA_unbounded_copy_by_args_DEPENDENCIES) 
+	@rm -f unbounded_copy_by_args$(EXEEXT)
+	$(LINK) $(unbounded_copy_by_args_OBJECTS) $(unbounded_copy_by_args_LDADD) $(LIBS)
 unbounded_copy_by_gets$(EXEEXT): $(unbounded_copy_by_gets_OBJECTS) $(unbounded_copy_by_gets_DEPENDENCIES) $(EXTRA_unbounded_copy_by_gets_DEPENDENCIES) 
 	@rm -f unbounded_copy_by_gets$(EXEEXT)
 	$(LINK) $(unbounded_copy_by_gets_OBJECTS) $(unbounded_copy_by_gets_LDADD) $(LIBS)
@@ -265,6 +275,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/escape_shell_cmd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/unbounded_copy_by_args.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/unbounded_copy_by_gets.Po@am__quote@
 
 .c.o:
