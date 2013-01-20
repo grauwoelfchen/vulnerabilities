@@ -18,11 +18,11 @@ You don't have to `make install` ;)
 ### make
 
 ```
-$ ./configure
+$ ./configure CC=clang (gcc default)
 $ make
 ``
 
-or
+or (If you changed Makefile)
 
 ```
 $ aclocal
@@ -35,14 +35,13 @@ $ make
 
 All binaries are into `src`.
 
-
 ### scan-build
 
-* scan-build
+* scan-build (`make` needs `-k` option)
 
 ```
-$ ./configure
-$ scan-build -V make
+$ ./configure CC=clang
+$ scan-build -V -k make
 ```
 
 Did you find Vulnerabilities ?
