@@ -51,7 +51,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = escape_shell_cmd$(EXEEXT) \
 	unbounded_copy_by_gets$(EXEEXT) \
-	unbounded_copy_by_args$(EXEEXT) off_by_one_array$(EXEEXT)
+	unbounded_copy_by_args$(EXEEXT) off_by_one_array$(EXEEXT) \
+	off_by_one_malloc$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -70,6 +71,9 @@ escape_shell_cmd_LDADD = $(LDADD)
 am_off_by_one_array_OBJECTS = off_by_one_array.$(OBJEXT)
 off_by_one_array_OBJECTS = $(am_off_by_one_array_OBJECTS)
 off_by_one_array_LDADD = $(LDADD)
+am_off_by_one_malloc_OBJECTS = off_by_one_malloc.$(OBJEXT)
+off_by_one_malloc_OBJECTS = $(am_off_by_one_malloc_OBJECTS)
+off_by_one_malloc_LDADD = $(LDADD)
 am_unbounded_copy_by_args_OBJECTS = unbounded_copy_by_args.$(OBJEXT)
 unbounded_copy_by_args_OBJECTS = $(am_unbounded_copy_by_args_OBJECTS)
 unbounded_copy_by_args_LDADD = $(LDADD)
@@ -85,10 +89,10 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(escape_shell_cmd_SOURCES) $(off_by_one_array_SOURCES) \
-	$(unbounded_copy_by_args_SOURCES) \
+	$(off_by_one_malloc_SOURCES) $(unbounded_copy_by_args_SOURCES) \
 	$(unbounded_copy_by_gets_SOURCES)
 DIST_SOURCES = $(escape_shell_cmd_SOURCES) $(off_by_one_array_SOURCES) \
-	$(unbounded_copy_by_args_SOURCES) \
+	$(off_by_one_malloc_SOURCES) $(unbounded_copy_by_args_SOURCES) \
 	$(unbounded_copy_by_gets_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -188,6 +192,7 @@ escape_shell_cmd_SOURCES = escape_shell_cmd.c
 unbounded_copy_by_gets_SOURCES = unbounded_copy_by_gets.c
 unbounded_copy_by_args_SOURCES = unbounded_copy_by_args.c
 off_by_one_array_SOURCES = off_by_one_array.c
+off_by_one_malloc_SOURCES = off_by_one_malloc.c
 all: all-am
 
 .SUFFIXES:
@@ -268,6 +273,9 @@ escape_shell_cmd$(EXEEXT): $(escape_shell_cmd_OBJECTS) $(escape_shell_cmd_DEPEND
 off_by_one_array$(EXEEXT): $(off_by_one_array_OBJECTS) $(off_by_one_array_DEPENDENCIES) $(EXTRA_off_by_one_array_DEPENDENCIES) 
 	@rm -f off_by_one_array$(EXEEXT)
 	$(LINK) $(off_by_one_array_OBJECTS) $(off_by_one_array_LDADD) $(LIBS)
+off_by_one_malloc$(EXEEXT): $(off_by_one_malloc_OBJECTS) $(off_by_one_malloc_DEPENDENCIES) $(EXTRA_off_by_one_malloc_DEPENDENCIES) 
+	@rm -f off_by_one_malloc$(EXEEXT)
+	$(LINK) $(off_by_one_malloc_OBJECTS) $(off_by_one_malloc_LDADD) $(LIBS)
 unbounded_copy_by_args$(EXEEXT): $(unbounded_copy_by_args_OBJECTS) $(unbounded_copy_by_args_DEPENDENCIES) $(EXTRA_unbounded_copy_by_args_DEPENDENCIES) 
 	@rm -f unbounded_copy_by_args$(EXEEXT)
 	$(LINK) $(unbounded_copy_by_args_OBJECTS) $(unbounded_copy_by_args_LDADD) $(LIBS)
@@ -283,6 +291,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/escape_shell_cmd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/off_by_one_array.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/off_by_one_malloc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/unbounded_copy_by_args.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/unbounded_copy_by_gets.Po@am__quote@
 
