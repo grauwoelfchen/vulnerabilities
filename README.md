@@ -21,7 +21,7 @@ Let's compare result of gcc and clang with `objdump`.
 ```
 $ ./configure CC=clang (gcc default)
 $ make
-``
+```
 
 or (If you changed Makefile)
 
