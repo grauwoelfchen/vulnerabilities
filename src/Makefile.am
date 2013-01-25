@@ -1,4 +1,4 @@
-bin_PROGRAMS = escape_shell_cmd unbounded_copy_by_gets unbounded_copy_by_args off_by_one_array off_by_one_malloc off_by_one_loop overwrite_nul arc_injection
+bin_PROGRAMS = escape_shell_cmd unbounded_copy_by_gets unbounded_copy_by_args off_by_one_array off_by_one_malloc off_by_one_loop overwrite_nul arc_injection read_memory
 escape_shell_cmd_SOURCES       = escape_shell_cmd.c
 unbounded_copy_by_gets_SOURCES = unbounded_copy_by_gets.c
 unbounded_copy_by_args_SOURCES = unbounded_copy_by_args.c
@@ -7,3 +7,4 @@ off_by_one_malloc_SOURCES      = off_by_one_malloc.c
 off_by_one_loop_SOURCES        = off_by_one_loop.c
 overwrite_nul_SOURCES          = overwrite_nul.c
 arc_injection_SOURCES          = arc_injection.c
+read_memory_SOURCES            = read_memory.c
