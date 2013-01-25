@@ -13,7 +13,8 @@ Vulnerability Notes as learning.
 
 ## How to
 
-You don't have to `make install` ;)
+You don't have to `make install` ;)  
+Let's compare result of gcc and clang with `objdump`.
 
 ### make
 
