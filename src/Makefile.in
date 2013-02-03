@@ -55,7 +55,7 @@ bin_PROGRAMS = escape_shell_cmd$(EXEEXT) \
 	off_by_one_malloc$(EXEEXT) off_by_one_loop$(EXEEXT) \
 	overwrite_nul$(EXEEXT) arc_injection$(EXEEXT) \
 	read_memory$(EXEEXT) read_memory$(EXEEXT) double_free$(EXEEXT) \
-	unlink$(EXEEXT)
+	unlink$(EXEEXT) malloc_zero$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -77,6 +77,9 @@ double_free_LDADD = $(LDADD)
 am_escape_shell_cmd_OBJECTS = escape_shell_cmd.$(OBJEXT)
 escape_shell_cmd_OBJECTS = $(am_escape_shell_cmd_OBJECTS)
 escape_shell_cmd_LDADD = $(LDADD)
+am_malloc_zero_OBJECTS = malloc_zero.$(OBJEXT)
+malloc_zero_OBJECTS = $(am_malloc_zero_OBJECTS)
+malloc_zero_LDADD = $(LDADD)
 am_off_by_one_array_OBJECTS = off_by_one_array.$(OBJEXT)
 off_by_one_array_OBJECTS = $(am_off_by_one_array_OBJECTS)
 off_by_one_array_LDADD = $(LDADD)
@@ -110,16 +113,16 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(arc_injection_SOURCES) $(double_free_SOURCES) \
-	$(escape_shell_cmd_SOURCES) $(off_by_one_array_SOURCES) \
-	$(off_by_one_loop_SOURCES) $(off_by_one_malloc_SOURCES) \
-	$(overwrite_nul_SOURCES) $(read_memory_SOURCES) \
-	$(unbounded_copy_by_args_SOURCES) \
+	$(escape_shell_cmd_SOURCES) $(malloc_zero_SOURCES) \
+	$(off_by_one_array_SOURCES) $(off_by_one_loop_SOURCES) \
+	$(off_by_one_malloc_SOURCES) $(overwrite_nul_SOURCES) \
+	$(read_memory_SOURCES) $(unbounded_copy_by_args_SOURCES) \
 	$(unbounded_copy_by_gets_SOURCES) $(unlink_SOURCES)
 DIST_SOURCES = $(arc_injection_SOURCES) $(double_free_SOURCES) \
-	$(escape_shell_cmd_SOURCES) $(off_by_one_array_SOURCES) \
-	$(off_by_one_loop_SOURCES) $(off_by_one_malloc_SOURCES) \
-	$(overwrite_nul_SOURCES) $(read_memory_SOURCES) \
-	$(unbounded_copy_by_args_SOURCES) \
+	$(escape_shell_cmd_SOURCES) $(malloc_zero_SOURCES) \
+	$(off_by_one_array_SOURCES) $(off_by_one_loop_SOURCES) \
+	$(off_by_one_malloc_SOURCES) $(overwrite_nul_SOURCES) \
+	$(read_memory_SOURCES) $(unbounded_copy_by_args_SOURCES) \
 	$(unbounded_copy_by_gets_SOURCES) $(unlink_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -226,6 +229,7 @@ arc_injection_SOURCES = arc_injection.c
 read_memory_SOURCES = read_memory.c
 double_free_SOURCES = double_free.c
 unlink_SOURCES = unlink.c
+malloc_zero_SOURCES = malloc_zero.c
 all: all-am
 
 .SUFFIXES:
@@ -309,6 +313,9 @@ double_free$(EXEEXT): $(double_free_OBJECTS) $(double_free_DEPENDENCIES) $(EXTRA
 escape_shell_cmd$(EXEEXT): $(escape_shell_cmd_OBJECTS) $(escape_shell_cmd_DEPENDENCIES) $(EXTRA_escape_shell_cmd_DEPENDENCIES) 
 	@rm -f escape_shell_cmd$(EXEEXT)
 	$(LINK) $(escape_shell_cmd_OBJECTS) $(escape_shell_cmd_LDADD) $(LIBS)
+malloc_zero$(EXEEXT): $(malloc_zero_OBJECTS) $(malloc_zero_DEPENDENCIES) $(EXTRA_malloc_zero_DEPENDENCIES) 
+	@rm -f malloc_zero$(EXEEXT)
+	$(LINK) $(malloc_zero_OBJECTS) $(malloc_zero_LDADD) $(LIBS)
 off_by_one_array$(EXEEXT): $(off_by_one_array_OBJECTS) $(off_by_one_array_DEPENDENCIES) $(EXTRA_off_by_one_array_DEPENDENCIES) 
 	@rm -f off_by_one_array$(EXEEXT)
 	$(LINK) $(off_by_one_array_OBJECTS) $(off_by_one_array_LDADD) $(LIBS)
@@ -343,6 +350,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/arc_injection.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/double_free.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/escape_shell_cmd.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/malloc_zero.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/off_by_one_array.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/off_by_one_loop.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/off_by_one_malloc.Po@am__quote@
