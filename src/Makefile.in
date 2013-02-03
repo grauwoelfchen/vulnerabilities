@@ -54,7 +54,8 @@ bin_PROGRAMS = escape_shell_cmd$(EXEEXT) \
 	unbounded_copy_by_args$(EXEEXT) off_by_one_array$(EXEEXT) \
 	off_by_one_malloc$(EXEEXT) off_by_one_loop$(EXEEXT) \
 	overwrite_nul$(EXEEXT) arc_injection$(EXEEXT) \
-	read_memory$(EXEEXT) read_memory$(EXEEXT) double_free$(EXEEXT)
+	read_memory$(EXEEXT) read_memory$(EXEEXT) double_free$(EXEEXT) \
+	unlink$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -97,6 +98,9 @@ unbounded_copy_by_args_LDADD = $(LDADD)
 am_unbounded_copy_by_gets_OBJECTS = unbounded_copy_by_gets.$(OBJEXT)
 unbounded_copy_by_gets_OBJECTS = $(am_unbounded_copy_by_gets_OBJECTS)
 unbounded_copy_by_gets_LDADD = $(LDADD)
+am_unlink_OBJECTS = unlink.$(OBJEXT)
+unlink_OBJECTS = $(am_unlink_OBJECTS)
+unlink_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -110,13 +114,13 @@ SOURCES = $(arc_injection_SOURCES) $(double_free_SOURCES) \
 	$(off_by_one_loop_SOURCES) $(off_by_one_malloc_SOURCES) \
 	$(overwrite_nul_SOURCES) $(read_memory_SOURCES) \
 	$(unbounded_copy_by_args_SOURCES) \
-	$(unbounded_copy_by_gets_SOURCES)
+	$(unbounded_copy_by_gets_SOURCES) $(unlink_SOURCES)
 DIST_SOURCES = $(arc_injection_SOURCES) $(double_free_SOURCES) \
 	$(escape_shell_cmd_SOURCES) $(off_by_one_array_SOURCES) \
 	$(off_by_one_loop_SOURCES) $(off_by_one_malloc_SOURCES) \
 	$(overwrite_nul_SOURCES) $(read_memory_SOURCES) \
 	$(unbounded_copy_by_args_SOURCES) \
-	$(unbounded_copy_by_gets_SOURCES)
+	$(unbounded_copy_by_gets_SOURCES) $(unlink_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -221,6 +225,7 @@ overwrite_nul_SOURCES = overwrite_nul.c
 arc_injection_SOURCES = arc_injection.c
 read_memory_SOURCES = read_memory.c
 double_free_SOURCES = double_free.c
+unlink_SOURCES = unlink.c
 all: all-am
 
 .SUFFIXES:
@@ -325,6 +330,9 @@ unbounded_copy_by_args$(EXEEXT): $(unbounded_copy_by_args_OBJECTS) $(unbounded_c
 unbounded_copy_by_gets$(EXEEXT): $(unbounded_copy_by_gets_OBJECTS) $(unbounded_copy_by_gets_DEPENDENCIES) $(EXTRA_unbounded_copy_by_gets_DEPENDENCIES) 
 	@rm -f unbounded_copy_by_gets$(EXEEXT)
 	$(LINK) $(unbounded_copy_by_gets_OBJECTS) $(unbounded_copy_by_gets_LDADD) $(LIBS)
+unlink$(EXEEXT): $(unlink_OBJECTS) $(unlink_DEPENDENCIES) $(EXTRA_unlink_DEPENDENCIES) 
+	@rm -f unlink$(EXEEXT)
+	$(LINK) $(unlink_OBJECTS) $(unlink_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -342,6 +350,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/read_memory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/unbounded_copy_by_args.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/unbounded_copy_by_gets.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/unlink.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
